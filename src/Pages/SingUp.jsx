@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 // import { addDoc, collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { collection, getDoc, setDoc } from "firebase/firestore";
 
 export default function SingUp() {
     const [name,setName] = useState('')
@@ -16,7 +17,6 @@ export default function SingUp() {
       Singin('/login')
     }
  async function handelSubmite(){
-    // const auth = getAuth();
     if(password != confirmPassword){
         setError('Please Check Password!')
     }else{
@@ -24,9 +24,10 @@ export default function SingUp() {
       const user = userCredential.user;
      console.log(user)
        updateProfile(user,{
-        displayName : name,
+        email : name,
         phoneNumber : contact
        }) 
+       
     }).catch((error)=>{
       console.log(error)
     })    

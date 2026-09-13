@@ -6,6 +6,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from "react-router-dom";
 import AddIcon from '@mui/icons-material/Add';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { onAuthStateChanged } from "firebase/auth";
+import Sidebar from "../component/Sidebar.jsx";
 export default function AllTask() {
   const [storedTask, setStoredTask] = useState([]);
   const CreateTaskPage = useNavigate()
@@ -26,11 +28,14 @@ export default function AllTask() {
     getData();
   }, []);
 
-  
   console.log(storedTask);
   return (
-    <div >
-      <div className="flex p-4 align-middle ">
+    <div className="flex">
+     <div>
+      <Sidebar />
+     </div>
+      <div>
+            <div className="flex p-4 align-middle ">
         <div>
           <h1>All Tasks <br/> Manage and track all your project tasks</h1>
         </div>
@@ -57,6 +62,7 @@ export default function AllTask() {
 
         
       ))}
+      </div>
       </div>
     </div>
   );

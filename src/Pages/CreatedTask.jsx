@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 export default function CreatedTask() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -9,7 +10,8 @@ export default function CreatedTask() {
   const [sdate, setSdate] = useState("");
   const [edate, setEdate] = useState("");
   const [error, setError] = useState("");
-  const [getUser, setGetUser] = useState([]);
+  const [useruid,setUseruid] = useState("")
+  const [createdBy, setCreatedby] = useState('')
   async function handelSubmite() {
     if (
       title !== "" &&
@@ -19,21 +21,28 @@ export default function CreatedTask() {
       sdate !== "" &&
       edate !== ""
     ) {
-        const collectionRef = collection(db, "createTask");
-        const newDocRef = doc(collectionRef);
-        const taskid = newDocRef.id;
+      const collectionRef = collection(db, "createTask");
+      const newDocRef = doc(collectionRef);
+      const taskid = newDocRef.id;
+
+    
       const task = {
-        id : taskid,
+        id: taskid,
         title: title,
         description: description,
         assign: assign,
         priority: priority,
         sdate: sdate,
         edate: edate,
-        
+        createdBy : createdBy,
+        useruid : useruid
+
       };
-      const createTask = await setDoc(newDocRef,task);
-      console.log(createTask);
+      const createTask = await setDoc(newDocRef, task);
+      setTitle("")
+      setDescription("")
+      setSdate("")
+      setEdate("")
     } else {
       setError("File The All Filed");
     }
@@ -52,8 +61,12 @@ export default function CreatedTask() {
   }
   useEffect(() => {
     GetUsers();
+      onAuthStateChanged(auth, (current_user) => {
+        setCreatedby(current_user.displayName)
+        setUseruid(current_user.uid)
+      })
   }, []);
-  
+
   return (
     <div className="h-screen w-screen justify-center flex flex-col">
       <div className="flex flex-col w-[50%] m-auto justify-center">
@@ -61,15 +74,17 @@ export default function CreatedTask() {
         <label htmlFor="">Task Title</label>
         <input
           type="text"
+          value={title}
           className="border-2 p-1 rounded-md"
           onChange={(e) => setTitle(e.target.value)}
         />
-        
+
         <label htmlFor="">Description</label>
         <textarea
           name=""
           id=""
           rows={4}
+          value={description}
           className="border-2 p-1 rounded-md"
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
@@ -81,14 +96,14 @@ export default function CreatedTask() {
               {res.name}
             </option>
           ))}
-        </select>
+          </select>
         <label htmlFor="">Priority</label>
         <select
           name=""
           id=""
           className="border-2 p-1 rounded-md"
           onChange={(e) => setPriority(e.target.value)}
-          >
+        >
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>
@@ -98,6 +113,7 @@ export default function CreatedTask() {
           <div>
             <label htmlFor="">Start Date </label>
             <input
+            value={sdate}
               type="date"
               className="border-2 p-1 rounded-md "
               onChange={(e) => setSdate(e.target.value)}
@@ -107,6 +123,7 @@ export default function CreatedTask() {
             <label htmlFor="">Due Date </label>
             <input
               type="date"
+              value={edate}
               className="border-2 p-1 rounded-md "
               onChange={(e) => setEdate(e.target.value)}
             />
