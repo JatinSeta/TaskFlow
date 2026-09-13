@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { auth  } from '../firebase';
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -25,12 +25,14 @@ export default function Login() {
     })
     console.log(user)
    }
+
   }
-  onAuthStateChanged(auth,(user)=>{
-    if(user){
+  onAuthStateChanged(auth,(current_user)=>{
+    if(current_user){
       // const uid = user.id
       const email = user.id
-      console.log("Logined Email",email)
+      const user_name = current_user.displayName
+      console.log("Logined Email",user_name)
     }else{
       console.log("No User Found")
     }

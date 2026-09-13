@@ -8,12 +8,14 @@ import AllTask from "./Pages/AllTask";
 import CreatedTask from "./Pages/CreatedTask";
 import SingUp from "./Pages/SingUp";
 import ViewTask from "./Pages/ViewTask";
+import Protected from "./component/Protected";
 export default function App() {
+  
   return (
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home/> }/>
-      <Route path="/all-task" element={<AllTask/> }/>
+      <Route path="/all-task" element={<Protected Page={AllTask}/>}/>
       <Route path="/create-task" element={<CreatedTask/> }/>
       <Route path="/edit-task/:id" element={<EditTask/> }/>
       <Route path="/view-task/:id" element={<ViewTask/>}/>

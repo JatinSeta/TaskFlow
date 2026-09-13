@@ -6,6 +6,7 @@ export default function Home() {
     login('/login')
     
   }
+  
   return (
     <div className="m-5">
       <div className="flex flex-col">
