@@ -1,13 +1,13 @@
 import { useState } from "react";
-import {createUserWithEmailAndPassword } from "firebase/auth";
-import { auth,db } from "../firebase";
-import { addDoc, collection } from "firebase/firestore";
+import {createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../firebase";
+// import { addDoc, collection } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 export default function SingUp() {
     const [name,setName] = useState('')
     const [email,setEmail] = useState('')
-    const [contact,setContact] = useState('')
+    const [contact,setContact] = useState()
     const [password,setPassword] = useState('')
     const [confirmPassword,setConfirmPassword ] = useState('')
     const [error,setError] = useState('')
@@ -23,20 +23,14 @@ export default function SingUp() {
       await createUserWithEmailAndPassword(auth,email,password).then((userCredential)=>{
       const user = userCredential.user;
      console.log(user)
+       updateProfile(user,{
+        displayName : name,
+        phoneNumber : contact
+       }) 
     }).catch((error)=>{
       console.log(error)
-    })
-    const user = {
-      name : name,
-      email : email,
-      contact: contact,
-    }
-    const userDetiles = await addDoc(collection(db,"userData"),user)
-    console.log(userDetiles)
-  
-    }
-    
-    
+    })    
+    }  
   }
   return (
     <div className="h-screen w-full flex justify-center flex-col ">
