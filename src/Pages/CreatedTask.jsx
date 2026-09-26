@@ -10,13 +10,12 @@ export default function CreatedTask() {
   const [sdate, setSdate] = useState("");
   const [edate, setEdate] = useState("");
   const [error, setError] = useState("");
-  const [useruid,setUseruid] = useState("")
   const [createdBy, setCreatedby] = useState('')
+  const [getUser,setGetuser] = useState([])
   async function handelSubmite() {
     if (
       title !== "" &&
       description !== "" &&
-      assign !== "" &&
       priority !== "" &&
       sdate !== "" &&
       edate !== ""
@@ -24,21 +23,21 @@ export default function CreatedTask() {
       const collectionRef = collection(db, "createTask");
       const newDocRef = doc(collectionRef);
       const taskid = newDocRef.id;
-
+  
     
       const task = {
         id: taskid,
         title: title,
         description: description,
-        assign: assign,
+        assign: JSON.parse(assign),
         priority: priority,
         sdate: sdate,
         edate: edate,
-        createdBy : createdBy,
-        useruid : useruid
-
+        createdBy : JSON.parse(createdBy),
+        status : "Pending",
+        CreatedAt : new Date()
       };
-      const createTask = await setDoc(newDocRef, task);
+      await setDoc(newDocRef, task);
       setTitle("")
       setDescription("")
       setSdate("")
@@ -50,20 +49,25 @@ export default function CreatedTask() {
   async function GetUsers() {
     try {
       const Allusers = [];
-      const seeTask = await getDocs(collection(db, "userData"));
+      const seeTask = await getDocs(collection(db, "users"));
       seeTask.forEach((ele) => {
         Allusers.push(ele.data());
       });
-      setGetUser(Allusers);
+      console.log(Allusers)
+      setGetuser(Allusers);
     } catch (error) {
       console.log(error);
     }
   }
   useEffect(() => {
     GetUsers();
-      onAuthStateChanged(auth, (current_user) => {
-        setCreatedby(current_user.displayName)
-        setUseruid(current_user.uid)
+    onAuthStateChanged(auth, (current_user) => {
+      const user_Detiles = {
+        name : current_user.displayName,
+        id : current_user.uid
+      }
+      console.log(user_Detiles)
+        setCreatedby(JSON.stringify(user_Detiles))
       })
   }, []);
 
@@ -89,13 +93,11 @@ export default function CreatedTask() {
           onChange={(e) => setDescription(e.target.value)}
         ></textarea>
         <label htmlFor="">Assign To</label>
-        {/* <input type="text"  className="border-2 p-1 rounded-md" onChange={(e)=>setAssign(e.target.value)}/> */}
-        <select name="" id="" onChange={(e) => setAssign(e.target.value)}>
-          {getUser.map((res, index) => (
-            <option value={res.name} key={index}  >
-              {res.name}
-            </option>
-          ))}
+     <select name="" id="" onChange={(e) => setAssign(e.target.value)}  >
+            {getUser.map((res,index)=>(
+
+              <option key={index} value={JSON.stringify({userid : res.userid , name : res.name})}>{res.name}</option>
+            ))}            
           </select>
         <label htmlFor="">Priority</label>
         <select
@@ -107,7 +109,6 @@ export default function CreatedTask() {
           <option value="Low">Low</option>
           <option value="Medium">Medium</option>
           <option value="High">High</option>
-          <option value="Urgent">Urgent</option>
         </select>
         <div className="flex align-middle justify-evenly m-2">
           <div>

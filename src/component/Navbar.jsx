@@ -1,6 +1,7 @@
 // import Logo from "../../public/Image/Logo.png"
 import LoginIcon from '@mui/icons-material/Login';
 export default function Navbar() {
+  
   return (
      <div className="">
        <div className="flex justify-between">

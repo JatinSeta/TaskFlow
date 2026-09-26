@@ -7,7 +7,7 @@ export default function Protected(props) {
     const Login = useNavigate()
     useEffect(() => {
         onAuthStateChanged(auth, (current_user) => {
-            console.log(current_user)
+            // console.log(current_user)
             if (!current_user) {
                 Login('/login')
             }
