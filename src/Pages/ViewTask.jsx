@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
 import { useEffect, useState } from "react";
@@ -15,15 +15,16 @@ export default function ViewTask() {
   const [created, setCreated] = useState("");
   const [edate, setEdate] = useState("");
   const [status, setStatus] = useState("");
+  const [cdate,setCDate] = useState("")
   const { id } = useParams();
   const [vissble,setVissble] = useState(false)
   const BackPage = useNavigate();
   const EditPage = useNavigate();
+  const [statusUpdate,setStatusUpdate] = useState()
   async function getData(current_user) {
     const res = doc(db, "createTask", id);
     const data = await getDoc(res);
     const taskDetiles = data.data();
-    console.log(taskDetiles);
     setTitle(taskDetiles.title);
     setDescription(taskDetiles.description);
     setPriority(taskDetiles.priority);
@@ -32,17 +33,43 @@ export default function ViewTask() {
     setEdate(taskDetiles.edate);
     setStatus(taskDetiles.status);
     setCreated(taskDetiles.createdBy.name);
+    setCDate(taskDetiles.CompletedDate)
     if(taskDetiles.createdBy.id == current_user ){
       setVissble(true)
     }
   }
-
+ async function handelUpdate(){
+    if(statusUpdate == "Completed"){
+      const updatedobj = {
+      status:statusUpdate,
+      CompletedDate:new Date()
+    }
+       const update = doc(db,"createTask",id);
+    await updateDoc(update,updatedobj)
+    }else{
+  const updatedobj = {
+      status:statusUpdate
+    }
+    const update = doc(db,"createTask",id);
+    await updateDoc(update,updatedobj)
+    }
+  }
+  async function handelDelete() {
+    const docref = doc(db,"createTask",id)
+    try{
+      await deleteDoc(docref)
+      Back()
+      console.log("Task Deleted")
+    }catch{
+      console("Task Not Deleted")
+    }
+  }
   useEffect(() => {
     getData();
     onAuthStateChanged(auth, (current_user) => {
       if (current_user) {
           getData(current_user.uid);
-      }
+        }
     });
   }, []);
   function Back() {
@@ -64,7 +91,7 @@ export default function ViewTask() {
           <div onClick={() => EditPage(`/edit-task/${id}`)} className={`${vissble == false ? "hidden" : "block"} flex bg-[#FFFFFF] border-[#2563EB] border-2 font-semibold  align-middle self-center p-2 justify-center rounded-full group hover:bg-[#2563EB] transition-all duration-300 hover:cursor-pointer`}>
             <ModeEditOutlineOutlinedIcon className="text-[#2563EB] group-hover:text-[#FFFFFF]" />
           </div>
-          <div className={`${vissble == false ? "hidden" : "block"} flex  border-[#B91C1C] p-2 justify-center m-2 border-2  text-[#B91C1C] bg-white font-medium rounded-full transition-all duration-300 group hover:bg-[#DC2626] hover:cursor-pointer`}>
+          <div onClick={handelDelete} className={`${vissble == false ? "hidden" : "block"} flex  border-[#B91C1C] p-2 justify-center m-2 border-2  text-[#B91C1C] bg-white font-medium rounded-full transition-all duration-300 group hover:bg-[#DC2626] hover:cursor-pointer`}>
             <DeleteOutlineOutlinedIcon className="text-[#DC2626] group-hover:text-white" />
           </div>
         </div>
@@ -167,6 +194,14 @@ export default function ViewTask() {
               </h1>
             </div>
           </div>
+            <div className="flex flex-col">
+               <h1>Update Task Status</h1>
+              <select name="" id="" className="w-[20%] p-1 m-1" onChange={(e)=>setStatusUpdate(e.target.value)}>
+                <option value={status} className="hidden">{status}</option>
+                <option value="In Progress"  disabled ={status == "In Progress" || status == "Completed"} className={`disabled:bg-[#F3F4F6] disabled:text-[#9CA3AF] disabled:cursor-not-allowed bg-[#DBEAFE] text-[#1D4ED8] border-2 border-[#93C5FD]`}>In Progress</option>
+                <option value="Completed" disabled={status == "Completed"} className="bg-[#DCFCE7] text-[#15803D] border-2 border-[#86EFAC] disabled:bg-[#F3F4F6] disabled:text-[#9CA3AF] disabled:cursor-not-allowed">Completed</option>
+              </select>
+              <button onClick={handelUpdate} className="w-[20%] bg-[#2563EB] text-[#FFFFFF] text-[13px] font-semibold rounded-md hover:bg-[#1D4ED8] p-2 m-1 hover:cursor-pointer disabled:bg-[#E5E7EB] disabled:text-[#9CA3AF]" disabled={status == "Completed"} >Update Status</button></div> 
         </div>
         <div className="m-2 bg-[#FFFFFF] col-span-1  p-2 rounded-md border-3 border-[#E5E7EB]">
           <h1 className="m-2 text-[13px] font-bold text-[#6B7280] p-b-[12px] border-b-2 border-[#E5E7EB]">
@@ -203,6 +238,16 @@ export default function ViewTask() {
             <h1 className="text-[16px] font-medium   text-[#111827]">
               {edate}
             </h1>
+          </div>
+          <div className="m-2">
+            <h1 className="text-[12px] font-semibold uppercase text-[#6B7280]">
+              Complated Date : 
+            </h1>
+         <h1 className="text-[16px] font-medium text-[#111827]">
+  {cdate?.toDate
+    ? cdate.toDate().toLocaleString()
+    : "Not completed"}
+</h1>
           </div>
           <div className="m-2">
             <h1 className="text-[12px] font-semibold  uppercase text-[#6B7280]">

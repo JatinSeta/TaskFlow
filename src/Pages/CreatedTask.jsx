@@ -35,7 +35,8 @@ export default function CreatedTask() {
         edate: edate,
         createdBy : JSON.parse(createdBy),
         status : "Pending",
-        CreatedAt : new Date()
+        CreatedAt : new Date(),
+        CompletedDate : ""
       };
       await setDoc(newDocRef, task);
       setTitle("")
