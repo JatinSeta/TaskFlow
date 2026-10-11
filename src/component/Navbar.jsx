@@ -8,6 +8,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import Dashboard from './../Pages/Dashboard';
 export default function Navbar() {
   const Login = useNavigate()
   const [isLogin,setisLogin] = useState(true)
@@ -15,9 +16,16 @@ export default function Navbar() {
   const [isnotfication,setIsnotfication] = useState(false)
   const [accountDetiles,setAccountDetiles] = useState()
   const [notification,setNotification] = useState()
-
+  const dashboard = useNavigate()
+  const home = useNavigate()
   function LoginPage(){
     Login('/login')
+  }
+  function Home(){
+    home('/')
+  }
+  function Dashboard(){
+    dashboard('/dashboard')
   }
   function Notification(){
     if(isnotfication == true){
@@ -68,7 +76,7 @@ export default function Navbar() {
      <div className="p-2">
        <div className="flex align-middle justify-between">
           <div>
-            <img src={Logo} alt="" className="m-1 h-10"/>
+            <img src={Logo} alt="" className="m-1 h-10 hover:cursor-pointer" onClick={Home} />
           </div>
           <div className="self-center">
                 <button onClick={LoginPage} className={`${isLogin == true ? "block" : "hidden"} bg-blue-500 p-1 m-1 rounded-md  text-center text-white hover:bg-[#eff6ff] hover:text-[#2563eb] transition-all duration-300 hover:cursor-pointer`}>Login <LoginIcon/></button>
@@ -81,9 +89,9 @@ export default function Navbar() {
        </div>
        {isnotfication && (
       <div className="flex flex-col">
-      <div className={`${isnotfication == true ? "block" : "hidden"} absolute top-0 bg-black opacity-75 z-50 h-full w-full m-0 p-0 left-0`}>
+      <div className={`${isnotfication == true ? "block" : "hidden"} fixed top-0 bg-black opacity-75 z-50 h-full w-full m-0 p-0 left-0`}>
         </div>
-        <div className="bg-white w-[30%] z-50 absolute right-0 p-5 m-4 h-[75%] rounded-md flex flex-col overflow-y-scroll ">
+        <div className="bg-white w-[75%] md:w-[50%] z-50 absolute right-0 p-5 m-4 h-[75%] rounded-md flex flex-col overflow-y-scroll ">
           <CloseIcon className="ml-auto m-2 hover:cursor-pointer text-slate-500 hover:text-red-500 text-xl transition-colors" onClick={()=>setIsnotfication(false)}/>
           <h1 className="text-xl font-bold text-slate-800 border-b-2 border-slate-200 p-1 ">Notifications</h1>
            {notification.map((res)=>(
@@ -98,16 +106,20 @@ export default function Navbar() {
        )}
        {isaccount && (
       <div className="flex flex-col">
-      <div className={`${isaccount == true ? "block" : "hidden"} absolute top-0 bg-black opacity-75 z-50 h-full w-full m-0 p-0 left-0`}>
+      <div className={`${isaccount == true ? "block" : "hidden"} fixed top-0 bg-black opacity-75 z-50 h-full w-full m-0 p-0 left-0`}>
         </div>
-        <div className="bg-slate-50 p-2 w-[30%] z-50 absolute right-0 m-4 h-fit rounded-xl flex flex-col border-2   border-gray-200">
+        <div className="bg-slate-50 p-2 scroll-auto w-[75%] md:w-[30%] z-50 absolute right-0 m-4 h-fit rounded-xl flex flex-col border-2   border-gray-200">
           <CloseIcon className="ml-auto m-1 hover:cursor-pointer" onClick={()=>setIsAccount(false)}/>
           <h1 className="text-[20px] font-bold text-gray-800">Name : </h1>
           <h1 className="text-sm  font-medium uppercase text-gray-500">{accountDetiles.name}</h1>
           <h1 className="text-[20px] font-bold text-gray-800">Email : </h1>
           <h1 className="text-sm  font-medium uppercase text-gray-500">{accountDetiles.email}</h1>
+          <div className="flex">
+             <button className="bg-blue-500 p-1 w-[50%] m-1 rounded-md self-center hover:cursor-pointer  text-white font-medium"  onClick={Dashboard}>Dashboard</button>
           <button className="bg-red-500 p-1 w-[50%] m-1 rounded-md self-center hover:cursor-pointer  text-white font-medium"  onClick={handellogout}>Log out</button>
-        </div>
+        
+          </div>
+         </div>
       </div>
       
        )}

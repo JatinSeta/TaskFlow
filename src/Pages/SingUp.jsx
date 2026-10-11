@@ -4,7 +4,6 @@ import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { collection, doc, setDoc } from "firebase/firestore";
 import logo from "../../public/Image/Logo.png";
-import Singup_img from "../../public/Image/Sing_Up_Img.jpg";
 
 export default function SingUp() {
   const [name, setName] = useState("");

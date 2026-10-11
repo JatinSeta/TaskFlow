@@ -21,7 +21,6 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<MainLayout />}>
-            {/* <Route path="/" element={<Home/> }/> */}
             <Route path="/all-task" element={<Protected Page={AllTask} />} />
             <Route path="/dashboard" element={<Protected Page={Dashboard} replace />} />
             <Route path="/create-task" element={<CreatedTask />} />
@@ -29,6 +28,7 @@ export default function App() {
             <Route path="/teams" element={<Protected Page={TeamPage} />} />
           </Route>
           {/* Open Nested Page */}
+            <Route path="/" element={<Home/> }/>
           <Route path="/edit-task/:id" element={<EditTask />} />
           <Route path="/view-task/:id" element={<ViewTask />} />
           <Route path="/view-team/:id" element={<Protected Page={ViewTeam} />} />
