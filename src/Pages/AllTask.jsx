@@ -44,12 +44,8 @@ export default function AllTask() {
 
   return (
 
-    <div className="grid grid-cols-6">
-      <div className="col-span-1">
-        <Sidebar />
-      </div>
-      <div className="col-span-5">
-        <div className="flex p-4 align-middle ">
+    <div className="">
+        <div className="flex p-4 align-middle flex-col md:flex-row ">
           <div>
             <h1 className="text-[28px] text-[#172B36] font-bold">
               All Tasks <br />
@@ -81,7 +77,6 @@ export default function AllTask() {
                 >
                   <h1 className="text-[12px] font-semibold">{res.priority}</h1>
                 </div>
-                {/* <MoreVertIcon className="ml-auto"/> */}
               </div>
               <h1 className="text-[18px] font-semibold text-[#172B36] mb-1">
                 {res.title}
@@ -89,7 +84,7 @@ export default function AllTask() {
               <h1 className="text-[14px] font-normal text-[#64748B] line-clamp-3">
                 {res.description}
               </h1>
-              <div className="flex justify-end align-middle m-2">
+              <div className="flex justify-end align-middle self-center m-2 flex-col md:flex-row">
                 <div className="flex align-middle items-center m-1 p-1">
                   <PersonOutlineIcon className="p-0.5" />
                   <h1 className="text-[13px]">{res.createdBy.name}</h1>
@@ -99,7 +94,7 @@ export default function AllTask() {
                   <h1 className="text-[13px]">{res.edate}</h1>
                 </div>
                 <div
-                  className={`m-1 p-1  rounded-md ${res.status == "Pending" ? "text-[#D97706] bg-[#FEF3C7]" : res.status == "In Progress" ? "text-[#2563EB] bg-[#DBEAFE]" : res.status == "Completed" ? "text-[#16A34A] bg-[#DCFCE7]" : "text-[#DC2626] bg-[#FEE2E2]"} flex`}
+                  className={`m-1 p-1  rounded-md ${res.status == "Pending" ? "text-[#D97706] bg-[#FEF3C7]" : res.status == "In Progress" ? "text-[#2563EB] bg-[#DBEAFE]" : res.status == "Completed" ? "text-[#16A34A] bg-[#DCFCE7]" : "text-[#DC2626] bg-[#FEE2E2]"} w-fit flex`}
                 >
                   <h1 className="font-bold text-[13px]">{res.status}</h1>
                 </div>
@@ -107,7 +102,6 @@ export default function AllTask() {
             </div>
           ))}
         </div>
-      </div>
     </div>
    
   );

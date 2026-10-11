@@ -1,49 +1,52 @@
-
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 export default function Home() {
-  const login = useNavigate()
-  function goLogin(){
-    login('/login')
-    
+  const login = useNavigate();
+  function goLogin() {
+    login("/login");
   }
-  
+
   return (
-    <div className="m-5">
-      <div className="flex flex-col">
-        <h1 className="text-2xl sm:text-4xl font-bold text-center m-1">
-          PROJECT MANAGEMENT, SIMPLIFIED
-        </h1>
-        <h1 className="text-2xl sm:text-2xl text-center m-1">
-          Manage your team's work in one place.
-        </h1>
-        <p className="text-center  m-1">
-          Plan projects, assign tasks, track progress, and collaborate with your
-          team effortlessly. Keep everyone aligned and every deadline on track.
-        </p>
-        <button  className="bg-blue-500 w-[50%] sm:w-[15%] p-2 rounded-2xl self-center items-center text-white m-1 font-bold" onClick={goLogin}>
-          Get Started
-        </button>
-      </div>
-      <div className="flex flex-col justify-center">
-        <p className="text-center m-2 font-mono  text-[18px]">
-          No complicated setup • Easy to use • Built for teams
-        </p>
-        <h1 className="text-center m-2 font-semibold text-[20px]">EVERYTHING YOUR TEAM NEEDS</h1>
-        <div className="flex justify-center">
-          <div className="font-mono text-[16px] font-black m-1">
-            <p className="p-1 ">✓ Project Management</p>
-            <p className="p-1 ">✓ Team Collaboration</p>
-            <p className="p-1 ">✓ Deadlines & Calendar</p>
-          </div>
-          <div className="font-mono text-[16px] font-black m-1">
-            <p className="p-1 ">✓ Task Tracking</p>
-            <p className="p-1 ">✓ Progress Tracking  </p>
-            <p className="p-1 ">✓ Real-Time Updates</p>
-          </div>
+    <section className="bg-white dark:bg-gray-900">
+      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <div className="mr-auto place-self-center lg:col-span-7">
+          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+            Manage Tasks. Build Teams. Get Things Done.
+          </h1>
+          <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">
+            TaskFlow helps teams create, assign, track, and complete tasks in one simple workspace.
+          </p>
+          <a
+            href="#"
+            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
+          >
+            Get started
+            <svg
+              className="w-5 h-5 ml-2 -mr-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </a>
+          <a
+            href="#"
+            className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+          >
+            Speak to Sales
+          </a>
+        </div>
+        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <img
+            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png"
+            alt="mockup"
+          />{" "}
         </div>
       </div>
-      <div>
-      </div>
-    </div>
+    </section>
   );
 }

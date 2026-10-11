@@ -6,6 +6,8 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import { onAuthStateChanged } from "firebase/auth";
+import CloseIcon from "@mui/icons-material/Close";
+import EditTask from "./EditTask";
 export default function ViewTask() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,10 +18,11 @@ export default function ViewTask() {
   const [edate, setEdate] = useState("");
   const [status, setStatus] = useState("");
   const [cdate,setCDate] = useState("")
+  const [isEdit,setIsEdit] = useState(false)
   const { id } = useParams();
   const [vissble,setVissble] = useState(false)
+  const [current_users,setCurrent_users] = useState()
   const BackPage = useNavigate();
-  const EditPage = useNavigate();
   const [statusUpdate,setStatusUpdate] = useState()
   async function getData(current_user) {
     const res = doc(db, "createTask", id);
@@ -65,18 +68,28 @@ export default function ViewTask() {
     }
   }
   useEffect(() => {
-    getData();
     onAuthStateChanged(auth, (current_user) => {
       if (current_user) {
           getData(current_user.uid);
+          setCurrent_users(current_user.uid)
         }
     });
   }, []);
+
+  function handelEdit(){
+    if(isEdit == true){
+      setIsEdit(false)
+    }else{
+      setIsEdit(true)
+    }
+  }
   function Back() {
     BackPage("/all-task");
   }
   return (
-    <div className="min-h-screen p-5 bg-linear-50 from-[#F8FCFF] to-[#EAF6FA]">
+ <div>
+     <div className="h-screen p-5 bg-linear-50 from-[#F8FCFF] to-[#EAF6FA]">
+      {/* Hader Section */}
       <div className="flex justify-between w-full">
         <div
           onClick={Back}
@@ -88,7 +101,7 @@ export default function ViewTask() {
           </h1>
         </div>
         <div className="flex">
-          <div onClick={() => EditPage(`/edit-task/${id}`)} className={`${vissble == false ? "hidden" : "block"} flex bg-[#FFFFFF] border-[#2563EB] border-2 font-semibold  align-middle self-center p-2 justify-center rounded-full group hover:bg-[#2563EB] transition-all duration-300 hover:cursor-pointer`}>
+          <div onClick={handelEdit} className={`${vissble == false ? "hidden" : "block"} flex bg-[#FFFFFF] border-[#2563EB] border-2 font-semibold  align-middle self-center p-2 justify-center rounded-full group hover:bg-[#2563EB] transition-all duration-300 hover:cursor-pointer`}>
             <ModeEditOutlineOutlinedIcon className="text-[#2563EB] group-hover:text-[#FFFFFF]" />
           </div>
           <div onClick={handelDelete} className={`${vissble == false ? "hidden" : "block"} flex  border-[#B91C1C] p-2 justify-center m-2 border-2  text-[#B91C1C] bg-white font-medium rounded-full transition-all duration-300 group hover:bg-[#DC2626] hover:cursor-pointer`}>
@@ -96,7 +109,7 @@ export default function ViewTask() {
           </div>
         </div>
       </div>
-
+      {/* Card Section */}
       <div className="w-full gap-5 sm:grid sm:grid-cols-3  m-auto ">
         <div className="m-2 col-span-2 bg-white  border-3 rounded-lg border-[#E5E7EB] p-6">
           <h1
@@ -261,6 +274,19 @@ export default function ViewTask() {
           </div>
         </div>
       </div>
+      
     </div>
+        {isEdit && (
+          <div className="absolute  inset-0 z-50 flex items-center justify-center bg-black/40">
+            <div className="flex flex-col m-autojustify-center bg-white border-[#E2E8F0] border-2 rounded-md p-4">
+                <CloseIcon
+                className="ml-auto hover:cursor-pointer"
+                onClick={() => setIsEdit(false)}
+              />
+            <EditTask onClose={()=>(getData(current_users),setIsEdit(false))}/>
+            </div>
+          </div>
+        )}
+ </div>
   );
 }

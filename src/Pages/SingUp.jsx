@@ -4,7 +4,8 @@ import { auth, db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { collection, doc, setDoc } from "firebase/firestore";
 import logo from "../../public/Image/Logo.png";
-import Singup_img from "../../public/Image/Sing_Up_Img.jpg"
+import Singup_img from "../../public/Image/Sing_Up_Img.jpg";
+
 export default function SingUp() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ export default function SingUp() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const Singin = useNavigate();
-  const dash_board = useNavigate()
+  const dash_board = useNavigate();
   function goSingin() {
     Singin("/login");
   }
@@ -36,9 +37,10 @@ export default function SingUp() {
             email: email,
             userid: useruid,
             contact: contact,
+            notification: [],
           };
           setDoc(newDocRef, user);
-          dash_board('/dashboard')
+          dash_board("/dashboard");
         })
         .catch((error) => {
           console.log(error);
@@ -46,73 +48,105 @@ export default function SingUp() {
     }
   }
   return (
-    <div className="h-screen  flex justify-center flex-col sm:flex-row bg-linear-50 from-[#F4FBFD] to-[#E5F6FA]">
-      <div className="m-auto w-[80%] flex flex-col md:flex-row font-bold bg-white border-4 border-[#E0EEF2] rounded-[20px] p-5 align-middle ">
-        <div className="flex flex-col  sm:w-[50%] m-auto">
-        <img src={logo} alt="" className="w-[30%] self-center" />
-        <h1 className="text-2xl text-[#063F58] text-center">Create Your Account</h1>
-        <p className="text-[16px] text-[#6B7F88] text-center">Sign up to get started.</p>
-        <img src={Singup_img} alt="" className="m-2 rounded-2xl hidden sm:block" />
-        </div>
-        <div className="sm:w-[50%] m-auto">
-           <label htmlFor="" className="text-[14px] text-[#102A36]">
-          Full Name
-        </label>
-        <input
-          type="text"
-          className="text-[16px] align-middle self-center border-[#DCE8EC] hover:border-[#08C9DC]  p-2 m-1 border-2 w-full rounded-md"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label htmlFor="" className="text-[14px] text-[#102A36]">
-          Email
-        </label>
-        <input
-          type="text"
-          className="text-[16px] align-middle self-center  border-[#DCE8EC] hover:border-[#08C9DC] p-2 m-1 border-2 w-full rounded-md"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="" className="text-[14px] text-[#102A36]">
-          Contact
-        </label>
-        <input
-          type="text"
-          className="text-[16px] align-middle self-center  border-[#DCE8EC] hover:border-[#08C9DC] p-2 m-1 border-2 w-full rounded-md"
-          onChange={(e) => setContact(e.target.value)}
-        />
-        <label htmlFor="" className="text-[14px] text-[#102A36]">
-          Password
-        </label>
-        <input
-          type="password"
-          className="text-[16px] align-middle self-center border-[#DCE8EC] hover:border-[#08C9DC]  p-2 m-1 border-2 w-full rounded-md"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label htmlFor="" className="text-[14px] text-[#102A36]">
-          Confirm Password
-        </label>
-        <input
-          type="password"
-          className="text-[16px] align-middle self-center  border-[#DCE8EC] hover:border-[#08C9DC]  p-2 m-1 border-2 w-full rounded-md"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <h1 className="text-center">{error}</h1>
-        <p className="text-[14px]">
-          Already have an account?{" "}
-          <span
-            className="underline text-blue-500 cursor-pointer"
-            onClick={goSingin}
+    <section className="border-red-500 bg-gray-200 min-h-screen flex items-center justify-center">
+      <div className="bg-gray-100 p-2 flex rounded-2xl shadow-lg max-w-3xl">
+        <div className="px-5 flex flex-col">
+          <img src={logo} alt="" className="w-25 self-center " />
+          <h2 className="text-2xl text-center font-bold text-[#002D74]">
+            Create an Account
+          </h2>
+          <p className="text-sm mt-4 text-[#002D74] text-center">
+            Create your TaskFlow account to get started.
+          </p>
+          <div className="mt-4">
+            <label className="block text-gray-700">Full Name</label>
+            <input
+              type="text"
+              name=""
+              id=""
+              placeholder="Full Name"
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                  focus:bg-white focus:outline-none"
+              required
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="mt-6">
+            <label className="block text-gray-700">Email Address</label>
+            <input
+              type="email"
+              name=""
+              id=""
+              placeholder="Enter Email Address"
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mt-6">
+            <label className="block text-gray-700">Contact</label>
+            <input
+              type="number"
+              name=""
+              id=""
+              placeholder="Contact Number"
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+              required
+              onChange={(e) => setContact(e.target.value)}
+            />
+          </div>
+
+          <div className="mt-4">
+            <label className="block text-gray-700">Password</label>
+            <input
+              type="password"
+              name=""
+              id=""
+              placeholder="Enter Password"
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                  focus:bg-white focus:outline-none"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="mt-4">
+            <label className="block text-gray-700">Confirm Password</label>
+            <input
+              type="password"
+              name=""
+              id=""
+              placeholder="Confirm Password"
+              className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+                  focus:bg-white focus:outline-none"
+              required
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </div>
+
+          <div className="text-start mt-3 flex gap-2">
+            <input type="checkbox" required className="hover:cursor-pointer" />
+            <p>I agree to the Terms & Conditions and Privacy Policy.</p>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
+                px-4 py-3 mt-6 hover:cursor-pointer"
+            onClick={handelSubmite}
           >
-            Sign in
-          </span>
-        </p>
-        <button
-          onClick={handelSubmite}
-          className="bg-[#0795AE] p-2 text-white m-2 rounded-md w-[50%] self-center"
-        >
-          SingUp
-        </button>
+            Log In
+          </button>
+
+          <p className="text-center text-red-500 font-semibold mt-2">{error}</p>
+
+          <div className="text-sm flex  items-center mt-3">
+            <p>Already have an account? </p>
+            <button className="py-2 px-5 ml-3 bg-white border rounded-xl hover:scale-110 duration-300 border-blue-400 hover:cursor-pointer" onClick={goSingin}>
+              Log In
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

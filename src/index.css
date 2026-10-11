@@ -1,1 +1,7 @@
-@import "tailwindcss"
+@import "tailwindcss";
+@import "react-day-picker/style.css";
+
+.rdp-root {
+  --rdp-accent-color: #6C5CE7;
+  --rdp-accent-background-color: #F0EDFF;
+}
