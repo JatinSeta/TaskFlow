@@ -3,7 +3,7 @@ import logo from "../../public/Image/Logo.png"
 import { CopyrightIcon } from '@mui/icons-material/Copyright';
 export default function Footer() {
   return (
-     <footer className="bg-gray-900 text-white px-6 py-10 md:px-12 lg:px-20">
+     <div className="bg-gray-900 text-white px-6 py-10 md:px-12 lg:px-20">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 md:gap-12">
           
@@ -63,6 +63,6 @@ export default function Footer() {
           </p>
         </div>
       </div>
-    </footer>
+    </div>
   )
 }

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../component/Sidebar";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import PeopleIcon from "@mui/icons-material/People";
@@ -7,7 +6,6 @@ import TaskIcon from "@mui/icons-material/Task";
 import DescriptionIcon from "@mui/icons-material/Description";
 import RestoreIcon from "@mui/icons-material/Restore";
 import { collection, getDocs } from "firebase/firestore";
-import { Calendar } from "../component/Calendar";
 import { useNavigate } from "react-router-dom";
 export default function Dashboard() {
   const [user, setUser] = useState("");

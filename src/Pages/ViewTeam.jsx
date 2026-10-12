@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { auth, db } from "../firebase";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { onAuthStateChanged } from "firebase/auth";
-import { Title } from "@mui/icons-material";
 import Navbar from "../component/Navbar";
 export default function ViewTeam() {
   const { id } = useParams();

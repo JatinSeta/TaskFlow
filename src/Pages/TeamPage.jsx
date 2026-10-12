@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import {doc, collection,  getDocs, getDoc, updateDoc, setDoc }  from "firebase/firestore";
+import {doc, collection,  getDocs, setDoc }  from "firebase/firestore";
 import {db,auth}  from "../firebase.js"
 import { onAuthStateChanged } from "firebase/auth";
 import CheckIcon from '@mui/icons-material/Check';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import Sidebar from '../component/Sidebar.jsx';
 import { useNavigate } from "react-router-dom";
 export default function TeamPage() {
   const [tems, setTems] = useState(false);

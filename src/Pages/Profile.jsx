@@ -6,7 +6,6 @@ import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import EmailIcon from "@mui/icons-material/Email";
 import CallIcon from "@mui/icons-material/Call";
 import CloseIcon from "@mui/icons-material/Close";
-import Sidebar from "../component/Sidebar";
 export default function Profile() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -122,7 +121,7 @@ export default function Profile() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white border border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
+              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white  border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -134,7 +133,7 @@ export default function Profile() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white border border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
+              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white  border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -146,7 +145,7 @@ export default function Profile() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white border border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
+              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white  border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
             />
@@ -158,7 +157,7 @@ export default function Profile() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white border border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
+              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white  border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
               value={tag}
               onChange={(e) => setTag(e.target.value)}
             />
@@ -170,7 +169,7 @@ export default function Profile() {
             </label>
             <input
               type="text"
-              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white border border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
+              className="w-full px-4 py-2.5 text-sm  text-gray-900 bg-white  border-gray-300 rounded-lg focus:border-blue-500 outline-0 border-2"
               value={aboutUs}
               onChange={(e) => setAboutUs(e.target.value)}
             />
