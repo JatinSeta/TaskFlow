@@ -1,6 +1,7 @@
 
 import logo from "../../public/Image/Logo.png"
-import { CopyrightIcon } from '@mui/icons-material/Copyright';
+import CopyrightIcon from "@mui/icons-material/Copyright";
+
 export default function Footer() {
   return (
      <div className="bg-gray-900 text-white px-6 py-10 md:px-12 lg:px-20">
@@ -58,7 +59,7 @@ export default function Footer() {
 
         <div className="mt-10 border-t border-gray-700 pt-6">
           <p className="flex flex-wrap items-center justify-center gap-2 text-center text-sm text-gray-400 sm:justify-start">
-            <CopyrightIcon size={16} />
+            <CopyrightIcon fontSize="small"  />
             <span>2026 TaskFlow. All rights reserved.</span>
           </p>
         </div>
