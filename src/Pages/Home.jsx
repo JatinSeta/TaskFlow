@@ -1,18 +1,21 @@
+
 import About from "../component/About";
 import CallToAction from "../component/CallToAction";
 import Features from "../component/Features";
+import Footer from "../component/footer";
 import HeroSection from "../component/HeroSection";
-import HowWork from "../component/HowWork";
+import HowWeWork from "../component/HowWeWork";
 import Navbar from "../component/Navbar";
 export default function Home() {
   return (
-    <>
-      <Navbar />
+    <div className="">
+      <Navbar/>
       <HeroSection />
       <About/>
       <Features/>
-      <HowWork/>
+      <HowWeWork/>
       <CallToAction/>
-    </>
+      <Footer/>
+    </div>
   );
 }

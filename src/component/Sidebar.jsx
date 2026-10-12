@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from "react";
+import Home from "../Pages/Home";
 export default function Sidebar() {
   const navigate = useNavigate();
 const [isOpen,setIsOpen] = useState(false)
@@ -16,6 +17,7 @@ const [isOpen,setIsOpen] = useState(false)
       console.log(error);
     }
   }
+  
 function Menu(){
   if(isOpen == false){
     setIsOpen(true)
@@ -88,6 +90,12 @@ function Menu(){
         className="p-4 w-[90%] bg-blue-500 m-2 self-center text-white rounded-2xl hover:cursor-pointer"
       >
         Profile 
+      </button>
+      <button
+        onClick={()=>navigate("/")}
+        className="p-4 w-[90%] bg-blue-500 m-2 self-center text-white rounded-2xl hover:cursor-pointer"
+      >
+        Home
       </button>
       <button
         onClick={LogOut}

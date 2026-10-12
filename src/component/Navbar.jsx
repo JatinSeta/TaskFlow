@@ -8,7 +8,6 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
-import Dashboard from './../Pages/Dashboard';
 export default function Navbar() {
   const Login = useNavigate()
   const [isLogin,setisLogin] = useState(true)

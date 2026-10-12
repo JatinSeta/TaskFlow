@@ -1,5 +1,5 @@
-import account from "../../public/Image/account.jpg"
-export default function HowWork() {
+
+export default function HowWeWork() {
   return (
     <div className="bg-gray-50 px-4 py-12 md:px-10 md:py-16">
         <h1 className="text-center text-3xl font-semibold mb-10 md:mb-12">How TaskFlow Works</h1>
