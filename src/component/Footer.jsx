@@ -43,7 +43,7 @@ export default function Footer() {
 
           {/* Account */}
           <div>
-            <h2 className="mb-4 text-lg font-semibold">Account</h2>
+            <h2 />className="mb-4 text-lg font-semibold">Account</h2>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
                 <a href="/login" className="transition hover:text-white">
