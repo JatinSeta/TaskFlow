@@ -41,7 +41,7 @@ pushedData.push(current_user);
       users: pushedData,
     };
     const docref = doc(db, "Tems", id);
-    const updated_doc = await updateDoc(docref, update_obj);
+    await updateDoc(docref, update_obj);
     console.log("Document ID:", id);
     console.log("Update data:", update_obj);
     console.log("Users:", pushedData);

@@ -4,10 +4,8 @@ export default function Footer() {
   return (
    <footer className="bg-gray-900 text-white px-6 py-10 md:px-12 lg:px-20">
       <div className="mx-auto max-w-7xl">
-        {/* Footer Content */}
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 md:gap-12">
           
-          {/* Logo & Description */}
           <div>
             <img
               src={logo}
@@ -19,7 +17,6 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Navigation */}
           <div>
             <h2 className="mb-4 text-lg font-semibold">Navigation</h2>
             <ul className="space-y-2 text-sm text-gray-400">
@@ -41,9 +38,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Account */}
           <div>
-            <h2 />className="mb-4 text-lg font-semibold">Account</h2>
+            <h2 className="mb-4 text-lg font-semibold">Account</h2>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
                 <a href="/login" className="transition hover:text-white">
@@ -59,7 +55,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Copyright */}
         <div className="mt-10 border-t border-gray-700 pt-6">
           <p className="flex flex-wrap items-center justify-center gap-2 text-center text-sm text-gray-400 sm:justify-start">
             <CopyrightIcon size={16} />
